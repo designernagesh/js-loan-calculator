@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>Loan Calculator</title>  
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" />
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Saira+Extra+Condensed:wght@700;800;900&display=swap">
+  <link rel="stylesheet" href="styles.css"> 
+</head>
+<body>
+  <div style="height: 90vh" class="d-flex mt-4 justify-content-center align-items-center">
+    <div class="container">
+    <h1 class="display-1 text-danger mb-4">Loan Calculator</h1>       
+    <form>
+        <div class="row">
+            <div class="col-md-12">
+              <label for="loanAmount"><strong>Loan Amount:</strong></label>                
+                <div class="input-group">
+                  <div class="input-group-prepend">
+                    <span class="input-group-text">Rs.</span>
+                  </div>
+                  <input type="number" class="form-control" id="loanAmount" placeholder="50,00,000.00">
+                </div>                                                                    
+                <p class="loanAmountErrorMsg"></p>                
+            </div>
+        
+            <div class="col-md-12">
+                <label for="interestRate"><strong>Interest Rate:</strong></label>            
+                <div class="input-group">
+                  <div class="input-group-prepend">
+                    <span class="input-group-text">%</span>
+                  </div>
+                    <input type="number" class="form-control" id="interestRate" placeholder="10">                    
+                </div>                           
+                <p class="interestRateErrorMsg"></p>               
+            </div>
+        
+            <div class="col-md-12">
+                <label for="monthsPay"><strong>Months to Pay:</strong></label>                            
+                <input type="number" class="form-control" id="monthsPay" placeholder="60">                                    
+                <p class="monthsPayErrorMsg"></p>
+            </div>
+                   
+            <div class="col-md-12 text-center">
+                <button type="submit" class="btn btn-danger btnCalculate"> Calculate </button>
+            </div>
+
+            <div class="col-md-12">
+                <p class="txt-danger display-3 result"></p>
+            </div>
+        </div>
+        </div>
+    </form>
+  </div>
+  <script>
+  	loanAmount = document.getElementById("loanAmount");
+    interestRate = document.getElementById("interestRate");
+    monthsPay = document.getElementById("monthsPay");
+    btnCalculate = document.querySelector(".btnCalculate");
+    result = document.querySelector(".result");
+    
+    loanAmountErrorMsg = document.querySelector('.loanAmountErrorMsg');
+    interestRateErrorMsg = document.querySelector('.interestRateErrorMsg');
+    monthsPayErrorMsg = document.querySelector('.monthsPayErrorMsg');
+    
+    loanAmountErrorMsg.style.visibility = 'hidden';
+    interestRateErrorMsg.style.visibility = 'hidden';
+    monthsPayErrorMsg.style.visibility = 'hidden';
+    result.style.display = 'none';
+
+    btnCalculate.addEventListener('click', function(e){
+      
+      e.preventDefault();        
+        if( (loanAmount.value == "" ) || (loanAmount.value < 1000) ){
+          loanAmountErrorMsg.style.visibility = 'visible';
+          loanAmountErrorMsg.textContent = "Enter the Loan Amount and amount should be minimum Rs.1,000.00";
+        }
+        else{
+          loanAmountErrorMsg.style.visibility = 'hidden';
+        }
+        if( (interestRate.value == "") || (interestRate.value < 0) ){
+          interestRateErrorMsg.style.visibility = 'visible';
+          interestRateErrorMsg.textContent = 'Enter the Rate of Interest and can not be less then 0.';
+        }
+        else{
+          interestRateErrorMsg.style.visibility = 'hidden';
+        }
+        if( (monthsPay.value.length <= 0) || (monthsPay.value < 6) ){
+          monthsPayErrorMsg.style.visibility = 'visible';
+          monthsPayErrorMsg.textContent = 'Enter the No. of EMI\'s to Pay and should be minimum 6 Months.'
+        } 
+        else{
+          monthsPayErrorMsg.style.visibility = 'hidden';
+        }
+        if(loanAmountErrorMsg.style.visibility == 'hidden' && interestRateErrorMsg.style.visibility == 'hidden' && monthsPayErrorMsg.style.visibility == 'hidden'){
+          result.style.display = 'block';
+          result.textContent = 'Hi'
+        }        
+    })
+  </script>
+</body>
+</html>
